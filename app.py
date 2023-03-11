@@ -1,4 +1,6 @@
 import streamlit as st
+import sklearn
+import plotly
 
 
 st.title("Giải phương trình bậc nhất")

@@ -1,17 +1,21 @@
 import streamlit as st
 import sklearn
-import plotly
+import pickle
 import numpy as np
 
-x = np.linspace(1, 5, 10)
-y = np.linspace(1, 5, 100)
-st.title("Giải phương trình bậc nhất")
+filename = "model.pickle"
+model = pickle.load(open(filename, "rb"))
 
-a = st.number_input(label="Tham số a")
-b = st.number_input(label="Tham số b")
+st.title("Revenue prediction")
 
-solve = st.button(label="Giải")
+temperature = np.array(st.number_input(label="Input temperature"))
 
-if solve:
-    result = round((-b / a), 2)
-    st.success("Phương trình có 1 nghiệm : " + str(result))
+temperature = temperature.reshape(-1, 1)
+
+predict = st.button(label="Predict")
+
+st.text("Revenue prediction")
+
+if predict:
+    revenue = model.predict(temperature)
+    st.success(str(*revenue[0]))
